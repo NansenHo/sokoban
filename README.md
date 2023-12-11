@@ -14,9 +14,12 @@
 ```bash
 # clone the project
 git clone https://github.com/NansenHo/sokoban.git
+cd sokoban
 
 # install packages
 pnpm install
 
 pnpm dev
+
+pnpm test
 ```

@@ -1,8 +1,20 @@
 import { defineStore } from "pinia";
 
+export enum mapElement {
+  MALL = 1,
+  FLOOR = 2,
+}
+
 export const useMapStore = defineStore("map", () => {
-  const count = 25;
+  const map = [
+    [1, 1, 1, 1, 1, 1],
+    [1, 2, 2, 2, 2, 1],
+    [1, 2, 2, 2, 2, 1],
+    [1, 2, 2, 2, 2, 1],
+    [1, 2, 2, 2, 2, 1],
+    [1, 1, 1, 1, 1, 1],
+  ];
   return {
-    count,
+    map,
   };
 });
