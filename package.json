@@ -1,6 +1,5 @@
 {
   "name": "sokoban",
-  "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -10,6 +9,7 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@types/node": "^20.10.4",
     "pinia": "^2.1.7",
     "vue": "^3.3.8"
   },
