@@ -1,10 +1,9 @@
 import { defineStore } from "pinia";
 
-export enum mapElement {
+export const enum mapElement {
   MALL = 1,
   FLOOR = 2,
 }
-
 type Map = mapElement[][];
 
 export const useMapStore = defineStore("map", () => {

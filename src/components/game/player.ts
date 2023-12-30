@@ -1,4 +1,4 @@
-import { computed, onMounted, onUnmounted } from "vue";
+import { onMounted, onUnmounted } from "vue";
 import { usePlayerStore } from "../../store/player";
 
 export function useMove() {
@@ -33,21 +33,4 @@ export function useMove() {
         break;
     }
   }
-}
-
-export function usePosition() {
-  const STEP = 32;
-
-  const { player } = usePlayerStore();
-
-  const position = computed(() => {
-    return {
-      left: player.x * STEP + "px",
-      top: player.y * STEP + "px",
-    };
-  });
-
-  return {
-    position,
-  };
 }
