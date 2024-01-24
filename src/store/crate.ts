@@ -1,27 +1,33 @@
 import { defineStore } from "pinia";
 import { reactive } from "vue";
-
-export interface Crate {
-  id: number;
-  x: number;
-  y: number;
-}
+import { Position } from "../shared/usePosition";
 
 export const useCrateStore = defineStore("crates", () => {
-  const crates: Crate[] = reactive([
-    {
-      id: 0,
-      x: 2,
-      y: 2,
-    },
-    {
-      id: 1,
-      x: 3,
-      y: 3,
-    },
-  ]);
+  const crates: Position[] = reactive([]);
+
+  function addCrate(crate: Position) {
+    crates.push(crate);
+  }
+
+  function createCrate(x: number, y: number): Position {
+    return {
+      x,
+      y,
+    };
+  }
+
+  function findCrate(position: Position) {
+    return crates.find((c) => {
+      return c.x === position.x && c.y === position.y;
+    });
+  }
+
+  addCrate(createCrate(2, 2));
 
   return {
     crates,
+    addCrate,
+    createCrate,
+    findCrate,
   };
 });

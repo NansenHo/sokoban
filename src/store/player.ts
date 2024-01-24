@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { reactive } from "vue";
 import { useMapStore } from "./map";
+import { useCrateStore } from "./crate";
 
 export const usePlayerStore = defineStore("player", () => {
   const { isWall } = useMapStore();
@@ -10,24 +11,35 @@ export const usePlayerStore = defineStore("player", () => {
     y: 1,
   });
 
+  function _move(dx: number, dy: number) {
+    if (isWall(player.x + dx, player.y + dy)) return;
+
+    const { findCrate } = useCrateStore();
+    const crate = findCrate({ x: player.x + dx, y: player.y + dy });
+
+    if (crate) {
+      crate.x += dx;
+      crate.y += dy;
+    }
+
+    player.x += dx;
+    player.y += dy;
+  }
+
   function movePlayerToUp() {
-    if (isWall(player.x, player.y - 1)) return;
-    player.y -= 1;
+    _move(0, -1);
   }
 
   function movePlayerToDown() {
-    if (isWall(player.x, player.y + 1)) return;
-    player.y += 1;
+    _move(0, 1);
   }
 
   function movePlayerToLeft() {
-    if (isWall(player.x - 1, player.y)) return;
-    player.x -= 1;
+    _move(-1, 0);
   }
 
   function movePlayerToRight() {
-    if (isWall(player.x + 1, player.y)) return;
-    player.x += 1;
+    _move(1, 0);
   }
 
   return {

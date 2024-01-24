@@ -8,16 +8,15 @@ type Map = mapElement[][];
 
 export const useMapStore = defineStore("map", () => {
   const map = [
-    [1, 1, 1, 1, 1, 1],
-    [1, 2, 2, 2, 2, 1],
-    [1, 2, 2, 2, 2, 1],
-    [1, 2, 2, 2, 2, 1],
-    [1, 2, 2, 2, 2, 1],
-    [1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 2, 2, 2, 2, 2, 2, 2, 2, 1],
+    [1, 2, 2, 2, 2, 2, 2, 2, 2, 1],
+    [1, 2, 2, 2, 2, 2, 2, 2, 2, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   ];
 
   function isWall(x: number, y: number): boolean {
-    return map[x][y] === mapElement.MALL;
+    return map[y][x] === mapElement.MALL;
   }
 
   function setupMap(customMap: Map): Map {

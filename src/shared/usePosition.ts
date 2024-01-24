@@ -1,6 +1,6 @@
 import { computed } from "vue";
 
-interface Position {
+export interface Position {
   x: number;
   y: number;
 }
