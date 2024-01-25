@@ -112,7 +112,7 @@ describe("player", () => {
     });
   });
 
-  describe("push crate", () => {
+  describe("push a crate", () => {
     let crate: Position;
 
     beforeEach(() => {
@@ -166,6 +166,51 @@ describe("player", () => {
       const { player, movePlayerToRight } = usePlayerStore();
 
       player.x = 0;
+      player.y = 1;
+
+      movePlayerToRight();
+
+      expect(crate.x).toBe(2);
+    });
+  });
+
+  describe("should not push a crate", () => {
+    beforeEach(() => {
+      const { setupMap } = useMapStore();
+      setupMap([
+        [1, 1, 1, 1, 1, 1],
+        [1, 2, 2, 2, 2, 1],
+        [1, 2, 2, 2, 2, 1],
+        [1, 2, 2, 2, 2, 1],
+        [1, 1, 1, 1, 1, 1],
+      ]);
+    });
+
+    it("when the crate hits the wall", () => {
+      const { player, movePlayerToLeft } = usePlayerStore();
+      const { addCrate, createCrate } = useCrateStore();
+
+      const crate = createCrate(1, 1);
+      addCrate(crate);
+
+      player.x = 2;
+      player.y = 1;
+
+      movePlayerToLeft();
+
+      expect(crate.x).toBe(1);
+    });
+
+    it("when the crate hits the other crates", () => {
+      const { player, movePlayerToRight } = usePlayerStore();
+
+      const { addCrate, createCrate } = useCrateStore();
+
+      const crate = createCrate(2, 1);
+      addCrate(crate);
+      addCrate(createCrate(3, 1));
+
+      player.x = 1;
       player.y = 1;
 
       movePlayerToRight();

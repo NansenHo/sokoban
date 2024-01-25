@@ -14,12 +14,12 @@ export const usePlayerStore = defineStore("player", () => {
   function _move(dx: number, dy: number) {
     if (isWall(player.x + dx, player.y + dy)) return;
 
-    const { findCrate } = useCrateStore();
-    const crate = findCrate({ x: player.x + dx, y: player.y + dy });
+    const { findCrate, moveCrate } = useCrateStore();
+    const crate = findCrate(player.x + dx, player.y + dy);
 
     if (crate) {
-      crate.x += dx;
-      crate.y += dy;
+      const isMoved = moveCrate(crate, dx, dy);
+      if (!isMoved) return;
     }
 
     player.x += dx;
