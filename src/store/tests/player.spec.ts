@@ -2,8 +2,7 @@ import { createPinia, setActivePinia } from "pinia";
 import { describe, it, expect, beforeEach } from "vitest";
 import { usePlayerStore } from "../player";
 import { useMapStore } from "../map";
-import { useCrateStore } from "../crate";
-import { Position } from "../../shared/usePosition";
+import { useCrateStore, Crate } from "../crate";
 
 beforeEach(() => {
   setActivePinia(createPinia());
@@ -113,7 +112,7 @@ describe("player", () => {
   });
 
   describe("push a crate", () => {
-    let crate: Position;
+    let crate: Crate;
 
     beforeEach(() => {
       const { setupMap } = useMapStore();

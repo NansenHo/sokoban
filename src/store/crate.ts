@@ -1,19 +1,26 @@
 import { defineStore } from "pinia";
 import { reactive } from "vue";
-import { Position } from "../shared/usePosition";
 import { useMapStore } from "./map";
+import { useTargetStore } from "./target";
+
+export interface Crate {
+  x: number;
+  y: number;
+  onTarget: boolean;
+}
 
 export const useCrateStore = defineStore("crates", () => {
-  const crates: Position[] = reactive([]);
+  const crates: Crate[] = reactive([]);
 
-  function addCrate(crate: Position) {
+  function addCrate(crate: Crate) {
     crates.push(crate);
   }
 
-  function createCrate(x: number, y: number): Position {
+  function createCrate(x: number, y: number): Crate {
     return {
       x,
       y,
+      onTarget: false,
     };
   }
 
@@ -23,7 +30,7 @@ export const useCrateStore = defineStore("crates", () => {
     });
   }
 
-  function moveCrate(crate: Position, dx: number, dy: number): boolean {
+  function moveCrate(crate: Crate, dx: number, dy: number): boolean {
     const { isWall } = useMapStore();
     const position: [number, number] = [crate.x + dx, crate.y + dy];
 
@@ -33,7 +40,15 @@ export const useCrateStore = defineStore("crates", () => {
     crate.x += dx;
     crate.y += dy;
 
+    detectionTarget(crate);
+
     return true;
+  }
+
+  function detectionTarget(crate: Crate) {
+    const { findTarget } = useTargetStore();
+    const target = findTarget(crate.x, crate.y);
+    crate.onTarget = !!target;
   }
 
   addCrate(createCrate(2, 2));
