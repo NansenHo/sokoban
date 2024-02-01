@@ -51,9 +51,6 @@ export const useCrateStore = defineStore("crates", () => {
     crate.onTarget = !!target;
   }
 
-  addCrate(createCrate(2, 2));
-  addCrate(createCrate(3, 2));
-
   return {
     crates,
     addCrate,
